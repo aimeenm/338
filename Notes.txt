@@ -1,0 +1,5 @@
+Model options:
+!!! https://medium.com/mlearning-ai/generating-sentences-from-keywords-using-transformers-in-nlp-e89f4de5cf6b
+https://github.com/aparrish/pytracery
+https://github.com/patarapolw/randomsentence
+https://www.analyticsvidhya.com/blog/2018/03/text-generation-using-python-nlp/
