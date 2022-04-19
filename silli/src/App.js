@@ -1,7 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 import axios from "axios";
-import { useState } from 'react'
+import { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
 
 function App() {
 
@@ -27,21 +28,16 @@ function App() {
   return (
     <div className="App">
        <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <p>This is Silli </p>
+        <div class="story">
+          <p>Sorry I'm late, Sorry I'm late, Sorry I'm lateSorry I'm late.....</p>
 
-        {/* new line start*/}
-        <p>To get your profile details: </p><button onClick={getData}>Click me</button>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1"> </label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" placeholder="Your word here.."></textarea>
+        </div>
+        <button onClick={getData}>Submit</button>
         {profileData && <div>
               <p>Profile name: {profileData.profile_name}</p>
               <p>About me: {profileData.about_me}</p>
