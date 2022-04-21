@@ -13,7 +13,7 @@ current_user = CurrentUser(first_name='Erick', last_name='Rubi', email='erub03@g
 api = Flask(__name__)
 CORS(api)
 
-@api.route('/profile')
+@api.route('/index')
 def my_profile():
     # response_body = {
     #     "name": "Nagato",
@@ -27,4 +27,3 @@ def my_profile():
     )
 
     # return response_body
-
