@@ -1,0 +1,66 @@
+  body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #6A5E6B;
+  }
+
+  .AppIntro {
+    text-align: center;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 50px;
+    height: 100%;
+    width: 100%;
+  }
+
+  .app-name{
+      font-family: Comfortaa;
+      color: white;
+  }
+
+  .nav-item:first-child{
+      margin-right: auto;
+      margin-left: 2rem;
+  }
+
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+      animation: App-logo-spin infinite 20s linear;
+    }
+  }
+  
+  .App-link {
+    color: #61dafb;
+  }
+
+
+  .introText{
+    border-radius: 10px;
+    padding: 1em;
+    color: white;
+    width: 70%;
+    height: max-content;
+    background-color: #6A5E6B;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+
+  }
+
+  .welcome-to{
+    margin-top: 15%;
+    font-family: Comfortaa;
+    color: white;
+  }
+
+
+
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  

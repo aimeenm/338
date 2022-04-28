@@ -22,8 +22,16 @@ def my_profile():
     # }
     
     return render_template(
-        'index.html',
+        'startpage.html',
         user=current_user
     )
 
     # return response_body
+
+@api.route('/home')
+def my_home():
+    
+    return render_template(
+        'index.html',
+        user=current_user
+    )
