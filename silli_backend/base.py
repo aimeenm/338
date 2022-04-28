@@ -23,11 +23,12 @@ def my_profile():
     # }
     
     return render_template(
-        user=current_user,
         'startpage.html',
+        user=current_user
     )
 
     # return response_body
+
 
 @api.route('/sentence', methods=['GET', 'POST'])
 def get_sentence():
@@ -59,6 +60,7 @@ def get_sentence():
             sentence=sentence
         )
 
+
 @api.route('/home')
 def my_home():
     sentence = "Sorry I'm late today because I saw a "
@@ -67,3 +69,4 @@ def my_home():
         user=current_user,
         sentence=sentence
     )
+
