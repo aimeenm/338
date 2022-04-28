@@ -14,6 +14,13 @@ current_user = CurrentUser(first_name='Erick', last_name='Rubi', email='erub03@g
 api = Flask(__name__)
 CORS(api)
 
+lines=[]
+with open('../language_models/sentence-prompts.txt') as f:
+    lines = f.readlines()
+line_num=0
+pieces = lines[line_num].split("_")
+paragraph=""
+
 @api.route('/index')
 def my_profile():
     # response_body = {
@@ -32,6 +39,10 @@ def my_profile():
 
 @api.route('/sentence', methods=['GET', 'POST'])
 def get_sentence():
+    global line_num
+    global paragraph
+    pieces = lines[line_num].split("_")
+
     word = ""
     if request.method == "POST":
         try:
@@ -42,31 +53,44 @@ def get_sentence():
             )
             return render_template('index.html', errors=errors)
     if word:
+        fullsentence=pieces[0]+word+pieces[1]
         print(word)
 
         tokenizer = AutoTokenizer.from_pretrained("gpt2")
         model = AutoModelForCausalLM.from_pretrained("gpt2")
 
-        prompt = " Sorry I'm late today because I saw a "+word + " and "
-        input_ids = tokenizer(prompt, return_tensors="pt").input_ids
+        #prompt = " Sorry I'm late today because I saw a "+word + " and "
+        input_ids = tokenizer(fullsentence, return_tensors="pt").input_ids
 
         # generate up to 30 tokens
         outputs = model.generate(input_ids, do_sample=False, max_length=30)
         sentence = tokenizer.batch_decode(outputs, skip_special_tokens=True)
 
+        fullsentence=sentence[0]
+        
+        if (line_num ==len(lines)-1):
+            sentence_prompt=". And well, that's why I'm late."
+        else:
+            line_num+=1
+            pieces = lines[line_num].split("_")
+            sentence_prompt=". " + pieces[0]
+
+
+        paragraph+=fullsentence
         return render_template(
             'index.html',
             user=current_user,
-            sentence=sentence
+            sentence=paragraph+sentence_prompt
         )
 
 
 @api.route('/home')
 def my_home():
-    sentence = "Sorry I'm late today because I saw a "
+    global paragraph
+    sentencetosend=pieces[0]
     return render_template(
         'index.html',
         user=current_user,
-        sentence=sentence
+        sentence=sentencetosend
     )
 
