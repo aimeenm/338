@@ -54,7 +54,6 @@ def get_sentence():
             return render_template('index.html', errors=errors)
     if word:
         fullsentence=pieces[0]+word+pieces[1]
-        print(word)
 
         tokenizer = AutoTokenizer.from_pretrained("gpt2")
         model = AutoModelForCausalLM.from_pretrained("gpt2")
@@ -75,12 +74,12 @@ def get_sentence():
             pieces = lines[line_num].split("_")
             sentence_prompt=". " + pieces[0]
 
-
         paragraph+=fullsentence
         return render_template(
             'index.html',
             user=current_user,
-            sentence=paragraph+sentence_prompt
+            storySoFar=paragraph,
+            sentence=sentence_prompt
         )
 
 
