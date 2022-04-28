@@ -21,11 +21,10 @@ def my_profile():
     #     "about" :"Hello! I'm a full stack developer that loves python and javascript",
     #     "crossorigin":"true"
     # }
-    sentence = "Sorry I'm late today because I saw a "
+    
     return render_template(
-        'index.html',
         user=current_user,
-        sentence=sentence
+        'startpage.html',
     )
 
     # return response_body
@@ -59,3 +58,12 @@ def get_sentence():
             user=current_user,
             sentence=sentence
         )
+
+@api.route('/home')
+def my_home():
+    sentence = "Sorry I'm late today because I saw a "
+    return render_template(
+        'index.html',
+        user=current_user,
+        sentence=sentence
+    )
