@@ -20,6 +20,18 @@ with open('../language_models/sentence-prompts.txt') as f:
 line_num=0
 pieces = lines[line_num].split("_")
 paragraph=""
+prevsentence=""
+class color:
+   PURPLE = '\033[95m'
+   CYAN = '\033[96m'
+   DARKCYAN = '\033[36m'
+   BLUE = '\033[94m'
+   GREEN = '\033[92m'
+   YELLOW = '\033[93m'
+   RED = '\033[91m'
+   BOLD = '\033[1m'
+   UNDERLINE = '\033[4m'
+   END = '\033[0m'
 
 @api.route('/index')
 def my_profile():
@@ -41,7 +53,10 @@ def my_profile():
 def get_sentence():
     global line_num
     global paragraph
+    global prevsentence
+
     pieces = lines[line_num].split("_")
+    paragraph+=prevsentence
 
     word = ""
     if request.method == "POST":
@@ -53,7 +68,9 @@ def get_sentence():
             )
             return render_template('index.html', errors=errors)
     if word:
-        fullsentence=pieces[0]+word+pieces[1]
+        fullsentence = pieces[0] + word
+        prompt1 = pieces[0]
+        fullsentence_len = len(fullsentence)
         print(word)
 
         tokenizer = AutoTokenizer.from_pretrained("gpt2")
@@ -66,21 +83,23 @@ def get_sentence():
         outputs = model.generate(input_ids, do_sample=False, max_length=30)
         sentence = tokenizer.batch_decode(outputs, skip_special_tokens=True)
 
-        fullsentence=sentence[0]
-        
+        finalsentence=sentence[0][fullsentence_len:]+". "
+
+        prevsentence = sentence[0]+". "
+
         if (line_num ==len(lines)-1):
             sentence_prompt=". And well, that's why I'm late."
         else:
             line_num+=1
             pieces = lines[line_num].split("_")
-            sentence_prompt=". " + pieces[0]
-
-
-        paragraph+=fullsentence
+            sentence_prompt=pieces[0]
+        
         return render_template(
             'index.html',
             user=current_user,
-            sentence=paragraph+sentence_prompt
+            sentence=paragraph+prompt1,
+            word = word,
+            end_prompt = finalsentence+sentence_prompt
         )
 
 
@@ -91,6 +110,6 @@ def my_home():
     return render_template(
         'index.html',
         user=current_user,
-        sentence=sentencetosend
+        end_prompt=sentencetosend
     )
 

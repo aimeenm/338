@@ -46,7 +46,7 @@
         <div class="story">
           <p>
 
-            {{ sentence }}
+            <i>{{ sentence }}</i> <b> {{ word }} </b> {{ end_prompt }}
           </p>
         </div>
       </div>
@@ -54,7 +54,7 @@
         <div class="user-input">
           <div class="add-word-input">
             <i class="far fa-smile fa-lg" tabindex="0"></i>
-            <input autocomplete="false" type = "text" aria-label="Your next word here..." name="inputword" class="form-control" placeholder="Your next word here..."/>
+            <input autocomplete="off" type = "text" aria-label="Your next word here..." name="inputword" class="form-control" placeholder="Your next word here..."/>
           </div>
           <button type="submit" class="btn btn-primary" type="submit">Continue</button>
         </div>
