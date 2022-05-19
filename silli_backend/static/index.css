@@ -91,6 +91,8 @@
   }
 
   .add-input-word{
+    display: flex;
+    flex-direction: row;
     width: 90%;
   }
 

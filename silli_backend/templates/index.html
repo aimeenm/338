@@ -28,7 +28,7 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>Silli</title>
+  <title>Silli</title>
   </head>
   <body>
     <div class="App">
@@ -46,11 +46,16 @@
         <div class="story">
           <p>
 
-            <i>{{ sentence }}</i> <b> {{ word }} </b> {{ end_prompt }}
+            <i>{{sentence}}</i> <b>{{word}}</b> {{end_prompt}}
           </p>
         </div>
       </div>
       <form role="form" method='POST' action='/sentence'>
+        {% if showSpinner %}
+          <div id="loading">Loading....</div>
+        {% else %}
+        <p></p>
+        {% endif %}
         <div class="user-input">
           <div class="add-word-input">
             <i class="far fa-smile fa-lg" tabindex="0"></i>

@@ -6,7 +6,8 @@ import json
 import requests
 from helpers import CurrentUser
 from pprint import pprint
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoTokenizer, AutoModelForCausalLM, GPT2Tokenizer, GPT2LMHeadModel
+
 
 
 current_user = CurrentUser(first_name='Erick', last_name='Rubi', email='erub03@gmail.com', username='erub03')
@@ -21,6 +22,8 @@ line_num=0
 pieces = lines[line_num].split("_")
 paragraph=""
 prevsentence=""
+showSpinner = False
+
 class color:
    PURPLE = '\033[95m'
    CYAN = '\033[96m'
@@ -49,7 +52,7 @@ def my_profile():
     # return response_body
 
 
-@api.route('/sentence1', methods=['GET', 'POST'])
+'''@api.route('/sentence1', methods=['GET', 'POST'])
 def get_sentence1():
     global line_num
     global paragraph
@@ -69,8 +72,10 @@ def get_sentence1():
         # fullsentence = paragraph+pieces[0]+word+pieces[1]
         print(word)
         # link = 'distilgpt2'
-        link = 'mrm8488/diltilgpt2-finetuned-bookcopus-10'
+        # link = 'dummy'
         # link = 'EleutherAI/gpt-j-6B'
+        
+
         tokenizer = AutoTokenizer.from_pretrained(link)
         model = AutoModelForCausalLM.from_pretrained(link)
         
@@ -113,13 +118,17 @@ def get_sentence1():
             user=current_user,
             sentence=paragraph+sentence_prompt
         )
+'''
+
+
+
 
 @api.route('/sentence', methods=['GET', 'POST'])
 def get_sentence():
     global line_num
     global paragraph
     global prevsentence
-
+    showSpinner = True
     pieces = lines[line_num].split("_")
     paragraph+=prevsentence
 
@@ -138,32 +147,45 @@ def get_sentence():
         fullsentence_len = len(fullsentence)
         print(word)
 
-        # tokenizer = AutoTokenizer.from_pretrained("gpt2")
-        # model = AutoModelForCausalLM.from_pretrained("gpt2")
-        link = 'mrm8488/diltilgpt2-finetuned-bookcopus-10'
-        tokenizer = AutoTokenizer.from_pretrained(link)
-        model = AutoModelForCausalLM.from_pretrained(link)
+        tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
+        model = GPT2LMHeadModel.from_pretrained("gpt2", pad_token_id=tokenizer.eos_token_id)
 
+        # model = AutoModelForCausalLM.from_pretrained("gpt2")
+        #link = 'mrm8488/diltilgpt2-finetuned-bookcopus-10'
+        # tokenizer = AutoTokenizer.from_pretrained(link)
+        # model = AutoModelForCausalLM.from_pretrained(link)
+        
+       
         #prompt = " Sorry I'm late today because I saw a "+word + " and "
         # input_ids = tokenizer(fullsentence, return_tensors="pt").input_ids
         input_ids = tokenizer.encode(fullsentence, return_tensors='pt')
 
         # generate up to 30 tokens
         # outputs = model.generate(input_ids, do_sample=False, max_length=30)
+        # outputs = model.generate(
+        #   input_ids, 
+        #   max_length=50, 
+        #   num_beams=5, 
+        #   no_repeat_ngram_size=2, 
+        #   num_return_sequences=5, 
+        #   early_stopping=True
+        # )
+
+        
         outputs = model.generate(
           input_ids, 
+          do_sample=True,
           max_length=50, 
-          num_beams=5, 
-          no_repeat_ngram_size=2, 
-          num_return_sequences=5, 
-          early_stopping=True
+          top_p=0.95,
+          top_k=0,
+          num_return_sequences=3
         )
         # sentence = tokenizer.batch_decode(outputs, skip_special_tokens=True)
-        sentence = tokenizer.decode(outputs[0], skip_special_tokens=True, )
-        
-        finalsentence=sentence[fullsentence_len:]+". "
+        sentence = tokenizer.decode(outputs[0], skip_special_tokens=True)
+        sentencesplit = ".".join(sentence.split(".")[:-1])
+        finalsentence=sentencesplit[fullsentence_len:]+". "
 
-        prevsentence = sentence+". "
+        prevsentence = sentencesplit+". "
 
         if (line_num ==len(lines)-1):
             sentence_prompt=". And well, that's why I'm late."
@@ -172,6 +194,7 @@ def get_sentence():
             pieces = lines[line_num].split("_")
             sentence_prompt=pieces[0]
         
+        showSpinner=False
         return render_template(
             'index.html',
             user=current_user,
