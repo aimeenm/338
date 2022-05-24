@@ -120,9 +120,6 @@ def get_sentence1():
         )
 '''
 
-
-
-
 @api.route('/sentence', methods=['GET', 'POST'])
 def get_sentence():
     global line_num

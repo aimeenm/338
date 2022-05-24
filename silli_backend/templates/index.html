@@ -8,6 +8,7 @@
     <link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <meta
       name="description"
       content="Web site created using create-react-app"
@@ -45,29 +46,59 @@
       <div class="story-space">
         <div class="story">
           <p>
-
             <i>{{sentence}}</i> <b>{{word}}</b> {{end_prompt}}
           </p>
         </div>
       </div>
       <form role="form" method='POST' action='/sentence'>
-        {% if showSpinner %}
-          <div id="loading">Loading....</div>
-        {% else %}
+        <div id="loader" style="display:none;">
+          <div class="loading"></div>
+        </div>
+        <div id="smiley">
+          <i class="far fa-smile fa-lg" tabindex="0"></i>
+        </div>
         <p></p>
-        {% endif %}
         <div class="user-input">
           <div class="add-word-input">
-            <i class="far fa-smile fa-lg" tabindex="0"></i>
-            <input autocomplete="off" type = "text" aria-label="Your next word here..." name="inputword" class="form-control" placeholder="Your next word here..."/>
+            <input id="inputword" autocomplete="off" type = "text" aria-label="Your next word here..." name="inputword" class="form-control" placeholder="Your next word here..."/>
           </div>
-          <button type="submit" class="btn btn-primary" type="submit">Continue</button>
+          <button id="continue-btn" type="submit" class="btn btn-primary" type="submit">Continue</button>
         </div>
+
+
       </form>
-      
-
-
-    
     </div>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+
+        $("#continue-btn").click(function(){
+          var word = $('#inputword').val();
+
+          $.ajax({
+            url:'/sentence',
+            type:'post',
+            data: {'inputword':word},
+            beforeSend: function(){
+              console.log("in before send");
+              $("#loader").show();
+              $("#smiley").hide();
+            },
+            success:function(response){
+
+              console.log("in success");
+            },
+            complete:function(data){
+              $("#loader").hide();
+              $("#smiley").show();
+            }
+          });
+        });
+      });
+    </script>
+
+
+
+
   </body>
 </html>
