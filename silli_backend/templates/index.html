@@ -64,9 +64,8 @@
           </div>
           <button id="continue-btn" type="submit" class="btn btn-primary" type="submit">Continue</button>
         </div>
-
-
       </form>
+      <a  href="http://127.0.0.1:5000/restart" id="restart-btn" class="btn btn-secondary">Restart</a>
     </div>
 
     <script type="text/javascript">
@@ -94,10 +93,21 @@
             }
           });
         });
+
+      //   <$("#restart-btn").click(function(){
+      //     $.ajax({
+      //       url:'/index',
+      //       type:'get',
+      //       beforeSend: function(){
+      //         console.log("restart");
+      //       },
+      //       complete:function(data){
+      //         console.log("restart done");
+      //       }
+      //     });
+      //   });
       });
     </script>
-
-
 
 
   </body>

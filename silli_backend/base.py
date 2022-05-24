@@ -36,6 +36,26 @@ class color:
    UNDERLINE = '\033[4m'
    END = '\033[0m'
 
+@api.route('/restart')
+def restart():
+    global line_num
+    global paragraph
+    global prevsentence
+    line_num=0
+    pieces = lines[line_num].split("_")
+    paragraph=""
+    prevsentence="" 
+    sentencetosend=pieces[0]
+
+    print("restarting thru py")
+    return render_template(
+        'index.html',
+        user=current_user,
+        sentence=paragraph,
+        word = "",
+        end_prompt = sentencetosend
+    )
+
 @api.route('/index')
 def my_profile():
     # response_body = {
@@ -43,7 +63,7 @@ def my_profile():
     #     "about" :"Hello! I'm a full stack developer that loves python and javascript",
     #     "crossorigin":"true"
     # }
-    
+    print("getting index")
     return render_template(
         'startpage.html',
         user=current_user
@@ -185,13 +205,11 @@ def get_sentence():
         prevsentence = sentencesplit+". "
 
         if (line_num ==len(lines)-1):
-            sentence_prompt=". And well, that's why I'm late."
+            sentence_prompt="And well, that's why I'm late.\n\n"
         else:
             line_num+=1
             pieces = lines[line_num].split("_")
             sentence_prompt=pieces[0]
-        
-        showSpinner=False
         return render_template(
             'index.html',
             user=current_user,
