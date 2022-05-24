@@ -3,6 +3,17 @@
     background-color: #41424C;
   }
 
+  .btn-primary, .btn-primary:active, .btn-primary:visited {
+    background-color: #39448E;
+    border-color: #39448E;
+}
+
+  .btn-primary:hover{
+    background-color: #29347E;
+    
+  }
+
+
 .App {
     text-align: center;
     display: flex;
@@ -72,7 +83,7 @@
   }
 
   .story{
-    border: 2px solid blueviolet;
+    border: 2px solid #39448E;
     border-radius: 10px;
     padding: 1em;
     color:#505050;
@@ -106,6 +117,14 @@
     justify-content: center;
     align-items: center;
 
+  }
+
+  .buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap:1em;
   }
 
   .loading {
