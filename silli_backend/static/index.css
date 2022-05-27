@@ -52,6 +52,12 @@
       color: white;
   }
 
+  .title {
+    font-family: Comfortaa;
+    font-size: larger;
+    font-weight: 700;
+  }
+
   .app-name{
       font-family: Comfortaa;
   }
