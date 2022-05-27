@@ -1,0 +1,160 @@
+  .body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #41424C;
+  }
+
+  .btn-primary, .btn-primary:active, .btn-primary:visited {
+    background-color: #39448E;
+    border-color: #39448E;
+}
+
+  .btn-primary:hover{
+    background-color: #29347E;
+    
+  }
+
+
+.App {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 50px;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .navbar {
+    position: sticky;
+    top: 0;
+    background-color: #655967;
+    z-index: 100;
+    width: 100%;
+} 
+
+  .nav-list{
+      margin:0;
+      padding: 1rem 0;
+      display: flex;
+      justify-self: flex-end;
+      align-items: center;
+      flex-wrap: wrap;
+  }
+
+  .nav-item{
+      list-style: none;
+      margin-right: 2rem;
+  }
+
+  .nav-item a{
+      text-decoration: none;
+      color: white;
+  }
+
+  .title {
+    font-family: Comfortaa;
+    font-size: larger;
+    font-weight: 700;
+  }
+
+  .app-name{
+      font-family: Comfortaa;
+  }
+
+  .nav-item:first-child{
+      margin-right: auto;
+      margin-left: 2rem;
+  }
+
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+      animation: App-logo-spin infinite 20s linear;
+    }
+  }
+  
+  .App-link {
+    color: #61dafb;
+  }
+  
+  .story-space{
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .story{
+    border: 2px solid #39448E;
+    border-radius: 10px;
+    padding: 1em;
+    color:#505050;
+    width: 70%;
+    height: max-content;
+  
+  }
+
+  .user-input{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+  }
+
+  .add-input-word{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+  }
+
+  .input-textbox{
+    padding: 1em;
+  }
+
+  #loader{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  .buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap:1em;
+  }
+
+  .loading {
+    border: 4px solid #F3F3F3; /* Light grey */
+    border-top: 4px solid #655967; /* Blue */
+    border-radius: 50%;
+    width: 27px;
+    height: 27px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: spin 2s linear infinite;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
