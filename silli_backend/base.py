@@ -71,75 +71,6 @@ def my_profile():
 
     # return response_body
 
-
-'''@api.route('/sentence1', methods=['GET', 'POST'])
-def get_sentence1():
-    global line_num
-    global paragraph
-    pieces = lines[line_num].split("_")
-    fullsentence = ""
-    word = ""
-    if request.method == "POST":
-        try:
-            word = request.form['inputword']
-        except:
-            errors.append(
-                "Unable to get URL. Please make sure it's valid and try again."
-            )
-            return render_template('index.html', errors=errors)
-    if word:
-        fullsentence=pieces[0]+word #+pieces[1]
-        # fullsentence = paragraph+pieces[0]+word+pieces[1]
-        print(word)
-        # link = 'distilgpt2'
-        # link = 'dummy'
-        # link = 'EleutherAI/gpt-j-6B'
-        
-
-        tokenizer = AutoTokenizer.from_pretrained(link)
-        model = AutoModelForCausalLM.from_pretrained(link)
-        
-        # link = 'mrm8488/t5-base-finetuned-common_gen'
-        # tokenizer = AutoTokenizer.from_pretrained(link)
-        # model = AutoModelWithLMHead.from_pretrained(link)
-        print(model)
-
-        #prompt = " Sorry I'm late today because I saw a "+word + " and "
-        # input_ids = tokenizer(paragraph+pieces[0]+word+pieces[1], return_tensors="pt").input_ids
-        # input_ids = tokenizer(fullsentence, return_tensors="pt").input_ids
-        input_ids = tokenizer.encode(fullsentence, return_tensors='pt')
-
-
-        # generate up to 30 tokens
-        outputs = model.generate(
-          input_ids, 
-          max_length=50, 
-          num_beams=5, 
-          no_repeat_ngram_size=2, 
-          num_return_sequences=5, 
-          early_stopping=True
-        )
-        # sentence = tokenizer.batch_decode(outputs, skip_special_tokens=True, )
-        sentence = tokenizer.decode(outputs[0], skip_special_tokens=True, )
-        fullsentence=sentence[0]
-        fullsentence=sentence
-        
-        if (line_num ==len(lines)-1):
-            sentence_prompt=". And well, that's why I'm late."
-        else:
-            line_num+=1
-            pieces = lines[line_num].split("_")
-            sentence_prompt=". " + pieces[0]
-
-
-        paragraph+=fullsentence
-        return render_template(
-            'index.html',
-            user=current_user,
-            sentence=paragraph+sentence_prompt
-        )
-'''
-
 @api.route('/sentence', methods=['GET', 'POST'])
 def get_sentence():
     global line_num
@@ -203,7 +134,7 @@ def get_sentence():
         finalsentence=sentencesplit[fullsentence_len:]+". "
 
         prevsentence = sentencesplit+". "
-
+        print("Line Num: "+str(line_num))
         if (line_num ==len(lines)-1):
             sentence_prompt="And well, that's why I'm late.\n\n"
         else:

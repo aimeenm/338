@@ -44,7 +44,6 @@
 
      
       <div class="story-space">
-        <p class="title">Your SILLI Story</p>
         <div class="story">
           <p>
             <i>{{sentence}}</i> <b>{{word}}</b> {{end_prompt}}
@@ -61,10 +60,10 @@
         <p></p>
         <div class="user-input">
           <div class="add-word-input">
-            <input id="inputword" autocomplete="off" type = "text" aria-label="Next word here..." name="inputword" class="form-control" placeholder="Next word here..."/>
+            <input id="inputword" autocomplete="off" type = "text" aria-label="Your next word here..." name="inputword" class="form-control" placeholder="Your next word here..."/>
           </div>
           <div class="buttons">
-            <button id="continue-btn" type="submit" class="btn btn-primary" type="submit">Continue</button>
+            <button id="continue-btn" class="btn btn-primary" type="submit">Continue</button>
             <a  href="http://127.0.0.1:5000/restart" id="restart-btn" class="btn btn-secondary">Restart</a>
           </div>
           
@@ -72,48 +71,6 @@
       </form>
      
     </div>
-
-    <script type="text/javascript">
-      $(document).ready(function(){
-
-        $("#continue-btn").click(function(){
-          var word = $('#inputword').val();
-
-          $.ajax({
-            url:'/sentence',
-            type:'post',
-            data: {'inputword':word},
-            beforeSend: function(){
-              console.log("in before send");
-              $("#loader").show();
-              $("#smiley").hide();
-            },
-            success:function(response){
-
-              console.log("in success");
-            },
-            complete:function(data){
-              $("#loader").hide();
-              $("#smiley").show();
-            }
-          });
-        });
-
-      //   <$("#restart-btn").click(function(){
-      //     $.ajax({
-      //       url:'/index',
-      //       type:'get',
-      //       beforeSend: function(){
-      //         console.log("restart");
-      //       },
-      //       complete:function(data){
-      //         console.log("restart done");
-      //       }
-      //     });
-      //   });
-      });
-    </script>
-
 
   </body>
 </html>
